@@ -55,7 +55,13 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
  * <a href="https://checkstyle.org/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#LITERAL_FOR">
  * LITERAL_FOR</a>,
  * <a href="https://checkstyle.org/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#LITERAL_DO">
- * DO_WHILE</a>.
+ * DO_WHILE</a>,
+ * <a href="https://checkstyle.org/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ELLIPSIS">
+ * ELLIPSIS</a>,
+ * <a href="https://checkstyle.org/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#LITERAL_SWITCH">
+ * LITERAL_SWITCH</a>,
+ * <a href="https://checkstyle.org/apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#LAMBDA">
+ * LAMBDA</a>.
  * </li>
  * </ul>
  * <p>
@@ -150,6 +156,9 @@ public class WhitespaceAfterCheck
             TokenTypes.LITERAL_DO,
             TokenTypes.LITERAL_FOR,
             TokenTypes.DO_WHILE,
+            TokenTypes.ELLIPSIS,
+            TokenTypes.LITERAL_SWITCH,
+            TokenTypes.LAMBDA,
         };
     }
 

@@ -85,16 +85,6 @@ eclipse-static-analysis)
   mvn -e --no-transfer-progress clean compile exec:exec -Peclipse-compiler
   ;;
 
-eclipse-static-analysis-java11)
-  # Ensure that project sources can be compiled by eclipse with Java11 language features.
-  mvn -e --no-transfer-progress clean compile exec:exec -Peclipse-compiler -D java.version=11
-  ;;
-
-java11-verify)
-  # Ensure that project sources can be compiled by jdk with Java11 language features.
-  mvn -e --no-transfer-progress clean verify -D java.version=11
-  ;;
-
 nondex)
   # Below we exclude test that fails due to picocli library usage
   mvn -e --no-transfer-progress --fail-never clean nondex:nondex -DargLine='-Xms1024m -Xmx2048m' \
@@ -479,7 +469,7 @@ check-since-version)
   fi
   ;;
 
-javac8)
+javac11)
   # InputCustomImportOrderNoPackage2 - nothing is required in front of first import
   # InputIllegalTypePackageClassName - bad import for testing
   # InputVisibilityModifierPackageClassName - bad import for testing
@@ -494,20 +484,6 @@ javac8)
   do
     javac -d target "${file}"
   done
-  ;;
-
-javac9)
-  files=($(grep -Rl --include='*.java' ': Compilable with Java9' \
-        src/test/resources-noncompilable || true))
-  if [[  ${#files[@]} -eq 0 ]]; then
-    echo "No Java9 files to process"
-  else
-      mkdir -p target
-      for file in "${files[@]}"
-      do
-        javac --release 9 -d target "${file}"
-      done
-  fi
   ;;
 
 javac14)
@@ -610,7 +586,7 @@ no-error-pgjdbc)
   checkout_from https://github.com/pgjdbc/pgjdbc.git
   cd .ci-temp/pgjdbc
   # pgjdbc easily damage build, we should use stable versions
-  git checkout "3a2bb""d77969903f8a4ce721d45905c72bd1688d6"
+  git checkout "417c9a2354ad""c3d2c80f84b0a5059ce""ad92e7c2b"
   ./gradlew --no-parallel --no-daemon checkstyleAll \
             -PenableMavenLocal -Pcheckstyle.version=${CS_POM_VERSION}
   cd ../
@@ -632,7 +608,7 @@ no-error-orekit)
   # no CI is enforced in project, so to make our build stable we should
   # checkout to latest release/development (annotated tag or hash) or sha that have fix we need
   # git checkout $(git describe --abbrev=0 --tags)
-  git checkout "76760bf""bf""b847e227490cd5d3662f""ca087f1a324"
+  git checkout "851de782c6""d16d""f725fa""bb4646ff0dd086723415"
   mvn -e --no-transfer-progress compile checkstyle:check \
     -Dorekit.checkstyle.version=${CS_POM_VERSION}
   cd ..
@@ -645,10 +621,12 @@ no-error-hibernate-search)
   echo CS_version: ${CS_POM_VERSION}
   checkout_from https://github.com/hibernate/hibernate-search.git
   cd .ci-temp/hibernate-search
-  mvn -e --no-transfer-progress clean install -DskipTests=true -Dtest.elasticsearch.run.skip=true \
+  mvn -e --no-transfer-progress clean install -pl build/config -am \
+     -DskipTests=true -Dmaven.compiler.failOnWarning=false \
      -Dcheckstyle.skip=true -Dforbiddenapis.skip=true \
-     -Dpuppycrawl.checkstyle.version=${CS_POM_VERSION}
-  mvn -e --no-transfer-progress checkstyle:check  -Dpuppycrawl.checkstyle.version=${CS_POM_VERSION}
+     -Dversion.com.puppycrawl.tools.checkstyle=${CS_POM_VERSION}
+  mvn -e --no-transfer-progress checkstyle:check \
+     -Dversion.com.puppycrawl.tools.checkstyle=${CS_POM_VERSION}
   cd ../
   removeFolderWithProtectedFiles hibernate-search
   ;;
@@ -724,7 +702,8 @@ no-error-equalsverifier)
   echo CS_version: ${CS_POM_VERSION}
   checkout_from https://github.com/jqno/equalsverifier.git
   cd .ci-temp/equalsverifier
-  mvn -e --no-transfer-progress compile checkstyle:check -Dcheckstyle.version=${CS_POM_VERSION}
+  mvn -e --no-transfer-progress -Pstatic-analysis-checkstyle compile \
+    checkstyle:check -Dversion.checkstyle=${CS_POM_VERSION}
   cd ../
   removeFolderWithProtectedFiles equalsverifier
   ;;

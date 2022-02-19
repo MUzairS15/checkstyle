@@ -12,7 +12,7 @@
 
   <groupId>com.puppycrawl.tools</groupId>
   <artifactId>checkstyle</artifactId>
-  <version>9.4-SNAPSHOT</version>
+  <version>10.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>checkstyle</name>
@@ -203,7 +203,7 @@
     <maven.site.plugin.version>3.10.0</maven.site.plugin.version>
     <maven.spotbugs.plugin.version>4.2.3</maven.spotbugs.plugin.version>
     <maven.pmd.plugin.version>3.15.0</maven.pmd.plugin.version>
-    <pmd.version>6.41.0</pmd.version>
+    <pmd.version>6.42.0</pmd.version>
     <maven.jacoco.plugin.version>0.8.7</maven.jacoco.plugin.version>
     <mockito.version>4.3.1</mockito.version>
     <saxon.version>10.6</saxon.version>
@@ -213,8 +213,8 @@
       9.1
     </maven.sevntu-checkstyle-check.checkstyle.version>
     <maven.versions.plugin.version>2.9.0</maven.versions.plugin.version>
-    <java.version>1.8</java.version>
-    <pitest.plugin.version>1.7.3</pitest.plugin.version>
+    <java.version>11</java.version>
+    <pitest.plugin.version>1.7.4</pitest.plugin.version>
     <pitest.plugin.timeout.factor>10</pitest.plugin.timeout.factor>
     <pitest.plugin.timeout.constant>50000</pitest.plugin.timeout.constant>
     <pitest.plugin.threads>4</pitest.plugin.threads>
@@ -235,7 +235,7 @@
     <dependency>
       <groupId>info.picocli</groupId>
       <artifactId>picocli</artifactId>
-      <version>4.6.2</version>
+      <version>4.6.3</version>
     </dependency>
     <dependency>
       <groupId>org.antlr</groupId>
@@ -280,7 +280,7 @@
     <dependency>
       <groupId>org.itsallcode</groupId>
       <artifactId>junit5-system-extensions</artifactId>
-      <version>1.1.0</version>
+      <version>1.2.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -298,7 +298,7 @@
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
-      <version>3.8.3</version>
+      <version>3.9</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -322,7 +322,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.35</version>
+      <version>1.7.36</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -394,7 +394,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.9.0.2155</version>
+          <version>3.9.1.2184</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -416,7 +416,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.3.1</version>
+          <version>3.3.2</version>
           <configuration>
             <!-- Exclude generated sources. -->
             <excludePackageNames>
@@ -1097,7 +1097,7 @@
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.8</version>
+        <version>1.6.11</version>
         <extensions>true</extensions>
         <configuration>
           <!-- serverId is ID of a <server> section from Maven's settings.xml
@@ -1517,10 +1517,6 @@
                 <exclude>**/MainTest.class</exclude>
                 <!-- tests need forbidden apis to test the main code fully -->
                 <exclude>**/XpathFileGeneratorAuditListenerTest.class</exclude>
-                <!-- These tests uses java.lang.reflect.AccessibleObject.isAccessible
-                  which has no Java 8 compatible workaround. -->
-                <exclude>**/AllChecksTest.class</exclude>
-                <exclude>**/XdocsPagesTest.class</exclude>
                 <!-- Needed for testing deprecated API. -->
                 <exclude>**/DefaultConfigurationTest.class</exclude>
                 <!-- Inline Config cannot be supported. -->
@@ -1629,7 +1625,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>3.2.1</version>
       </plugin>
 
       <plugin>
@@ -2040,7 +2036,6 @@
     <profile>
       <id>pitest-misc</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2132,7 +2127,6 @@
     <profile>
       <id>pitest-annotation</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2177,7 +2171,6 @@
     <profile>
       <id>pitest-blocks</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2222,7 +2215,6 @@
     <profile>
       <id>pitest-coding</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2268,7 +2260,6 @@
     <profile>
       <id>pitest-design</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2313,7 +2304,6 @@
     <profile>
       <id>pitest-header</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2358,7 +2348,6 @@
     <profile>
       <id>pitest-imports</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2403,7 +2392,6 @@
     <profile>
       <id>pitest-indentation</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2449,7 +2437,6 @@
     <profile>
       <id>pitest-javadoc</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2504,7 +2491,6 @@
     <profile>
       <id>pitest-metrics</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2549,7 +2535,6 @@
     <profile>
       <id>pitest-modifier</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2594,7 +2579,6 @@
     <profile>
       <id>pitest-naming</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2639,7 +2623,6 @@
     <profile>
       <id>pitest-regexp</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2684,7 +2667,6 @@
     <profile>
       <id>pitest-sizes</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2729,7 +2711,6 @@
     <profile>
       <id>pitest-whitespace</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2775,7 +2756,6 @@
     <profile>
       <id>pitest-ant</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2820,7 +2800,6 @@
     <profile>
       <id>pitest-packagenamesloader</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2862,7 +2841,6 @@
     <profile>
       <id>pitest-common</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -2944,7 +2922,6 @@
     <profile>
       <id>pitest-common-2</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3007,7 +2984,6 @@
     <profile>
       <id>pitest-main</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3049,7 +3025,6 @@
     <profile>
       <id>pitest-tree-walker</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3143,7 +3118,6 @@
     <profile>
       <id>pitest-api</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3199,7 +3173,6 @@
     <profile>
       <id>pitest-filters</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3246,7 +3219,6 @@
     <profile>
       <id>pitest-utils</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3337,7 +3309,6 @@
     <profile>
       <id>pitest-gui</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3408,7 +3379,6 @@
     <profile>
       <id>pitest-xpath</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>
@@ -3457,7 +3427,6 @@
     <profile>
       <id>pitest-java-ast-visitor</id>
       <properties>
-        <skipTests>true</skipTests>
         <jacoco.skip>true</jacoco.skip>
       </properties>
       <build>

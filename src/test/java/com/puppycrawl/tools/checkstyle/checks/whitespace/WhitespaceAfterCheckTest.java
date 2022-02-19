@@ -186,4 +186,45 @@ public class WhitespaceAfterCheckTest
         verifyWithInlineConfigParser(
                 getPath("InputWhitespaceAfterCountUnicodeCorrectly.java"), expected);
     }
+
+    @Test
+    public void testVarargs() throws Exception {
+        final String[] expected = {
+            "14:27: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "..."),
+            "17:67: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "..."),
+            "20:42: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "..."),
+            "27:45: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "..."),
+            "36:19: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "..."),
+        };
+        verifyWithInlineConfigParser(getPath("InputWhitespaceAfterVarargs.java"), expected);
+    }
+
+    @Test
+    public void testSwitchStatements() throws Exception {
+        final String[] expected = {
+            "18:9: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "switch"),
+            "30:9: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "switch"),
+            "32:21: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "->"),
+            "39:9: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "switch"),
+            "40:27: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "->"),
+            "41:28: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "->"),
+            "48:9: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "switch"),
+        };
+
+        verifyWithInlineConfigParser(
+                getNonCompilablePath("InputWhitespaceAfterSwitchStatements.java"),
+                expected);
+    }
+
+    @Test
+    public void testLambdaExpressions() throws Exception {
+        final String[] expected = {
+            "17:29: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "->"),
+            "19:29: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "->"),
+            "27:49: " + getCheckMessage(MSG_WS_NOT_FOLLOWED, "->"),
+        };
+
+        verifyWithInlineConfigParser(getPath("InputWhitespaceAfterLambdaExpressions.java"),
+                expected);
+    }
 }
